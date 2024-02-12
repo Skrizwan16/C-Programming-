@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+void generateParenthesisHelper(int n, int openCount, int closeCount, std::string current, std::vector<std::string>& result) {
+    // Base case: If we have used all parentheses
+    if (openCount == n && closeCount == n) {
+        result.push_back(current);
+        return;
+    }
+
+    // Add an open parenthesis if we haven't used all open parentheses
+    if (openCount < n) {
+        generateParenthesisHelper(n, openCount + 1, closeCount, current + '(', result);
+    }
+
+    // Add a close parenthesis if it doesn't violate the balance and we haven't used all close parentheses
+    if (closeCount < openCount) {
+        generateParenthesisHelper(n, openCount, closeCount + 1, current + ')', result);
+    }
+}
+
+std::vector<std::string> generateParenthesis(int n) {
+    std::vector<std::string> result;
+    generateParenthesisHelper(n, 0, 0, "", result);
+    return result;
+}
+
+int main() {
+    int n = 3; // Example value for n
+
+    std::vector<std::string> result = generateParenthesis(n);
+
+    std::cout << "Generated Parentheses for n = " << n << ":\n";
+    for (const std::string& str : result) {
+        std::cout << str << "\n";
+    }
+
+    return 0;
+}
