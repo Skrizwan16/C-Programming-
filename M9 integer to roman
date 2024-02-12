@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+std::string intToRoman(int num) {
+    std::vector<int> values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    std::vector<std::string> numerals = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+    std::string result = "";
+
+    for (int i = 0; i < values.size(); ++i) {
+        while (num >= values[i]) {
+            result += numerals[i];
+            num -= values[i];
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    int number;
+    std::cout << "Enter an integer: ";
+    std::cin >> number;
+
+    if (number >= 1 && number <= 3999) {
+        std::string romanNumeral = intToRoman(number);
+        std::cout << "Roman numeral: " << romanNumeral << std::endl;
+    } else {
+        std::cout << "Please enter a number between 1 and 3999." << std::endl;
+    }
+
+    return 0;
+}
