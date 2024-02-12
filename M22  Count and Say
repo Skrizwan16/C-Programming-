@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+
+std::string countAndSay(int n) {
+    if (n == 1) {
+        return "1";
+    }
+
+    std::string previous = countAndSay(n - 1);
+    std::string result = "";
+
+    char currentDigit = previous[0];
+    int count = 1;
+
+    for (int i = 1; i < previous.length(); ++i) {
+        if (previous[i] == currentDigit) {
+            count++;
+        } else {
+            result += std::to_string(count) + currentDigit;
+            currentDigit = previous[i];
+            count = 1;
+        }
+    }
+
+    result += std::to_string(count) + currentDigit;
+
+    return result;
+}
+
+int main() {
+    int n = 5;  
+    std::string result = countAndSay(n);
+
+    std::cout << "The " << n << "-th term of the count-and-say sequence is: " << result << std::endl;
+
+    return 0;
+}
