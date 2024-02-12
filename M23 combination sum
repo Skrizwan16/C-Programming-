@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+
+void combinationSumHelper(std::vector<int>& candidates, int target, int start, std::vector<int>& current, std::vector<std::vector<int>>& result) {
+    if (target == 0) {
+        result.push_back(current);
+        return;
+    }
+
+    for (int i = start; i < candidates.size(); ++i) {
+        if (candidates[i] <= target) {
+            current.push_back(candidates[i]);
+            combinationSumHelper(candidates, target - candidates[i], i, current, result);
+            current.pop_back();
+        }
+    }
+}
+
+std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target) {
+    std::vector<std::vector<int>> result;
+    std::vector<int> current;
+    
+    combinationSumHelper(candidates, target, 0, current, result);
+    
+    return result;
+}
+
+int main() {
+    std::vector<int> candidates = {2, 3, 6, 7};
+    int target = 7;
+
+    std::vector<std::vector<int>> result = combinationSum(candidates, target);
+
+    std::cout << "Combinations that sum up to " << target << " are:\n";
+    for (const auto& combination : result) {
+        std::cout << "[ ";
+        for (int num : combination) {
+            std::cout << num << " ";
+        }
+        std::cout << "]\n";
+    }
+
+    return 0;
+}
